@@ -1,0 +1,424 @@
+<html>
+        <head>
+                <title> Knight's Tour </title>
+                <style>
+                        html, body {
+                          margin: 0;
+                          padding: 10px;
+                          background: #faf8e0;
+                          color: #ffffff;
+                        }
+
+                        .grid-container {
+                          position: absolute;
+                          z-index: 1; 
+                        }
+
+                        .grid-row {
+                          margin-bottom: 1px; 
+                        }
+
+                        .grid-row:last-child {
+                        margin-bottom: 0; 
+                        }       
+
+                        .grid-row:after {
+                                content: "";
+                            display: block;
+                            clear: both;
+                        }
+
+                        .grid-cell {
+                          width: 106.25px;
+                          height: 106.25px;
+                          margin-right: 1px;
+                          float: left;
+                          border-radius: 0px;
+                          text-align: center;
+                          background: rgba(238, 228, 218, 0.35); 
+                        }
+
+                        .grid-cell:last-child {
+                            margin-right: 0; 
+                        }
+
+                        .game-container {
+                                  margin-top: 40px;
+                                  position: relative;
+                                  padding: 10px;
+                                  cursor: default;
+                                  background: #403933;
+                                  border-radius: 6px;
+                                  width: 340px;
+                                  height: 445px;
+                                  -webkit-box-sizing: border-box;
+                                  -moz-box-sizing: border-box;
+                                  box-sizing: border-box; 
+                        }
+                </style>
+
+                <script>
+ 
+ 						var board=[	[2,		0,		0	],
+									[0,		0,		0	],
+									[0,		0,		0	],
+									[0,		0,		0	] ]; //Initializes the variable board for the 2D Array. You still need to create it!
+									
+
+						function initGame(){ //This function __________ the game. What does init stand for? 
+							renderBoard();
+							colorBoard();
+							showMoves();
+						}
+						
+						function renderBoard(){ //This function creates the visual board.
+                                for(var i = 0; i < 4; i++){
+                                        for(var j = 0; j < 3; j++){
+                                                var boardID = "r"+i+"c"+j;
+                                                if(board[i][j]==2){
+                                                        document.getElementById(boardID).innerHTML = "</br></br>Knight";
+                                                }
+                                                else if(board[i][j]==4){
+                                                        document.getElementById(boardID).innerHTML = "</br></br>#";
+                                                }
+												else {
+													document.getElementById(boardID).innerHTML = "";
+												}
+                                        }
+                                }
+						}
+						
+						function colorBoard(){ //This function connects the numbers with the colors.
+									for(var i = 0; i < 4; i++){
+											for(var j = 0; j < 3; j++){
+													var boardID = "r"+i+"c"+j;
+													if(board[i][j] == 2){
+															document.getElementById(boardID).style.background = "#E6E6E6";
+													}
+													else if(board[i][j] == 4){
+															document.getElementById(boardID).style.background = "#E6E6E6";
+													}
+													else if(board[i][j] == 8){
+															document.getElementById(boardID).style.background = "#FFC90E";
+													}
+													else{
+														if(i%2==0 && j%2==1){
+															document.getElementById(boardID).style.background = "#6B4700";
+														}
+														else if(i%2==1 && j%2==0){
+															document.getElementById(boardID).style.background = "#6B4700";
+														}
+														else{
+															document.getElementById(boardID).style.background = "#E6D385";
+														}
+													}
+											}
+									}
+						}
+						
+						function showMoves(){
+							for (var row = 0; row < board.length; row++) {
+								for (var col = 0; col < board[row].length;col++) {
+									if (board[row][col] == 2) {
+										if (row+2 <= board.length-1){
+											if (col-1 >= 0){
+												if (board[row+2][col-1] == 0){
+													board[row+2][col-1]=4;
+												}
+											}
+											if (col+1 <= board[row].length-1){
+												if (board[row+2][col+1] == 0){
+													board[row+2][col+1]=4;
+												}
+											}
+										}
+										if (row-2 >= 0){
+											if (col-1 >= 0){
+												if (board[row-2][col-1] == 0){
+													board[row-2][col-1]=4;
+												}
+											}
+											if (col+1 <= board[row].length-1){
+												if (board[row-2][col+1] == 0){
+													board[row-2][col+1]=4;
+												}
+											}
+										}
+										if (row+1 <= board.length-1){
+											if (col-2 >= 0){
+												if (board[row+1][col-2] == 0){
+													board[row+1][col-2]=4;
+												}
+											}
+											if (col+2 <= board[row].length-1){
+												if (board[row+1][col+2] == 0){
+													board[row+1][col+2]=4;
+												}
+											}
+										}
+										if (row-1 >= 0){
+											if (col-2 >= 0){
+												if (board[row-1][col-2] == 0){
+													board[row-1][col-2]=4;
+												}
+											}
+											if (col+2 <= board[row].length-1){
+												if (board[row-1][col+2] == 0){
+													board[row-1][col+2]=4;
+												}
+											}
+										}
+									}
+								}
+							}
+							renderBoard();
+							colorBoard();
+						}
+						
+
+
+						function r0c0Click(){
+							if (board[0][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][0] = 0;
+							}
+							showMoves();
+                        }	
+						function r0c1Click(){
+							if (board[0][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r0c2Click(){
+							if (board[0][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][2] = 2;
+							}
+							showMoves();
+                        }
+
+
+						function r1c0Click(){
+							if (board[1][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][0] = 2;
+							}
+							showMoves();
+                        }	
+						function r1c1Click(){
+							if (board[1][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r1c2Click(){
+							if (board[1][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][2] = 2;
+							}
+							showMoves();
+                        }						
+
+						
+						function r2c0Click(){
+							if (board[2][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][0] = 2;
+							}
+							showMoves();
+                        }
+						function r2c1Click(){
+							if (board[2][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r2c2Click(){
+							if (board[2][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][2] = 2;
+							}
+							showMoves();
+                        }
+						
+						
+						function r3c0Click(){
+							if (board[3][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][0] = 2;
+							}
+							showMoves();
+                        }
+						function r3c1Click(){
+							if (board[3][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r3c2Click(){
+							if (board[3][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][2] = 2;
+							}
+							showMoves();
+                        }
+
+						function reset(){
+							board=[		[2,		0,		0	],
+										[0,		0,		0	],
+										[0,		0,		0	],
+										[0,		0,		0	] ];	
+							renderBoard();
+							colorBoard();
+							showMoves();	
+						}
+
+               </script>
+
+        </head> 
+        <body onload = "initGame()">
+			<h1><font color="black">The Knight's Tour</h1>
+				<p><font color="black">Lead the knight on a trip around the board below.<p>
+				<p><font color="black">Chess knights move two squares forward and one square perpendicular on each turn. The initial direction can be up, down, left, or right.</p>
+				<p><font color="black">Move this knight around the entire board, landing on each square only once.</p>
+                <div class="game-container">
+                        <div class="grid-container">
+                        <div class="grid-row">
+                          <div class="grid-cell" id = "r0c0" onclick="r0c0Click()"></div>
+                          <div class="grid-cell" id = "r0c1" onclick="r0c1Click()"></div>
+                          <div class="grid-cell" id = "r0c2" onclick="r0c2Click()"></div>
+                        </div>
+                        <div class="grid-row">
+                          <div class="grid-cell" id = "r1c0" onclick="r1c0Click()"></div>
+                          <div class="grid-cell" id = "r1c1" onclick="r1c1Click()"></div>
+                          <div class="grid-cell" id = "r1c2" onclick="r1c2Click()"></div>
+                        </div>
+                        <div class="grid-row">
+                          <div class="grid-cell" id = "r2c0" onclick="r2c0Click()"></div>
+                          <div class="grid-cell" id = "r2c1" onclick="r2c1Click()"></div>
+                          <div class="grid-cell" id = "r2c2" onclick="r2c2Click()"></div>
+                        </div>
+                        <div class="grid-row">
+                          <div class="grid-cell" id = "r3c0" onclick="r3c0Click()"></div>
+                          <div class="grid-cell" id = "r3c1" onclick="r3c1Click()"></div>
+                          <div class="grid-cell" id = "r3c2" onclick="r3c2Click()"></div>
+                        </div>
+                </div>
+             </div>
+			 </br>
+			<button onclick="reset()">Reset</button>
+        </body>
+</html>
