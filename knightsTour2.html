@@ -49,8 +49,8 @@
                                   cursor: default;
                                   background: #403933;
                                   border-radius: 6px;
-                                  width: 340px;
-                                  height: 447px;
+                                  width: 556px;
+                                  height: 663px;
                                   -webkit-box-sizing: border-box;
                                   -moz-box-sizing: border-box;
                                   box-sizing: border-box; 
@@ -59,10 +59,12 @@
 
                 <script>
  
- 						var board=[	[2,		0,		0	],
-									[0,		0,		0	],
-									[0,		0,		0	],
-									[0,		0,		0	] ]; //Initializes the variable board for the 2D Array. You still need to create it!
+ 						var board=[	[2,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	] ]; //Initializes the variable board for the 2D Array. You still need to create it!
 									
 
 						function initGame(){ //This function __________ the game. What does init stand for? 
@@ -72,8 +74,8 @@
 						}
 						
 						function renderBoard(){ //This function creates the visual board.
-                                for(var i = 0; i < 4; i++){
-                                        for(var j = 0; j < 3; j++){
+                                for(var i = 0; i < 6; i++){
+                                        for(var j = 0; j < 5; j++){
                                                 var boardID = "r"+i+"c"+j;
                                                 if(board[i][j]==2){
                                                         document.getElementById(boardID).innerHTML = "</br></br>Knight";
@@ -89,8 +91,8 @@
 						}
 						
 						function colorBoard(){ //This function connects the numbers with the colors.
-									for(var i = 0; i < 4; i++){
-											for(var j = 0; j < 3; j++){
+									for(var i = 0; i < 6; i++){
+											for(var j = 0; j < 5; j++){
 													var boardID = "r"+i+"c"+j;
 													if(board[i][j] == 2){
 															document.getElementById(boardID).style.background = "#E6E6E6";
@@ -225,6 +227,38 @@
 							}
 							showMoves();
                         }
+						function r0c3Click(){
+							if (board[0][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][3] = 2;
+							}
+							showMoves();
+                        }
+						function r0c4Click(){
+							if (board[0][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][4] = 2;
+							}
+							showMoves();
+                        }
 
 
 						function r1c0Click(){
@@ -274,7 +308,39 @@
 								board[1][2] = 2;
 							}
 							showMoves();
-                        }						
+                        }
+						function r1c3Click(){
+							if (board[1][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][3] = 2;
+							}
+							showMoves();
+                        }
+						function r1c4Click(){
+							if (board[1][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][4] = 2;
+							}
+							showMoves();
+                        }
 
 						
 						function r2c0Click(){
@@ -322,6 +388,38 @@
 									}
 								}
 								board[2][2] = 2;
+							}
+							showMoves();
+                        }
+						function r2c3Click(){
+							if (board[2][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][3] = 2;
+							}
+							showMoves();
+                        }
+						function r2c4Click(){
+							if (board[2][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][4] = 2;
 							}
 							showMoves();
                         }
@@ -375,12 +473,210 @@
 							}
 							showMoves();
                         }
+						function r3c3Click(){
+							if (board[3][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][3] = 2;
+							}
+							showMoves();
+                        }
+						function r3c4Click(){
+							if (board[3][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][4] = 2;
+							}
+							showMoves();
+                        }
+						
+						
+						function r4c0Click(){
+							if (board[4][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][0] = 2;
+							}
+							showMoves();
+                        }
+						function r4c1Click(){
+							if (board[4][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r4c2Click(){
+							if (board[4][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][2] = 2;
+							}
+							showMoves();
+                        }
+						function r4c3Click(){
+							if (board[4][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][3] = 2;
+							}
+							showMoves();
+                        }
+						function r4c4Click(){
+							if (board[4][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][4] = 2;
+							}
+							showMoves();
+                        }
+						
+						
+						function r5c0Click(){
+							if (board[5][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][0] = 2;
+							}
+							showMoves();
+                        }
+						function r5c1Click(){
+							if (board[5][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r5c2Click(){
+							if (board[5][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][2] = 2;
+							}
+							showMoves();
+                        }
+						function r5c3Click(){
+							if (board[5][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][3] = 2;
+							}
+							showMoves();
+                        }
+						function r5c4Click(){
+							if (board[5][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][4] = 2;
+							}
+							showMoves();
+                        }
 
 						function reset(){
-							board=[		[2,		0,		0	],
-										[0,		0,		0	],
-										[0,		0,		0	],
-										[0,		0,		0	] ];	
+							board=[	[2,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0	] ];	
 							renderBoard();
 							colorBoard();
 							showMoves();	
@@ -405,21 +701,43 @@
                           <div class="grid-cell" id = "r0c0" onclick="r0c0Click()"></div>
                           <div class="grid-cell" id = "r0c1" onclick="r0c1Click()"></div>
                           <div class="grid-cell" id = "r0c2" onclick="r0c2Click()"></div>
+						  <div class="grid-cell" id = "r0c3" onclick="r0c3Click()"></div>
+						  <div class="grid-cell" id = "r0c4" onclick="r0c4Click()"></div>
                         </div>
                         <div class="grid-row">
                           <div class="grid-cell" id = "r1c0" onclick="r1c0Click()"></div>
                           <div class="grid-cell" id = "r1c1" onclick="r1c1Click()"></div>
                           <div class="grid-cell" id = "r1c2" onclick="r1c2Click()"></div>
+						  <div class="grid-cell" id = "r1c3" onclick="r1c3Click()"></div>
+						  <div class="grid-cell" id = "r1c4" onclick="r1c4Click()"></div>
                         </div>
                         <div class="grid-row">
                           <div class="grid-cell" id = "r2c0" onclick="r2c0Click()"></div>
                           <div class="grid-cell" id = "r2c1" onclick="r2c1Click()"></div>
                           <div class="grid-cell" id = "r2c2" onclick="r2c2Click()"></div>
+						  <div class="grid-cell" id = "r2c3" onclick="r2c3Click()"></div>
+						  <div class="grid-cell" id = "r2c4" onclick="r2c4Click()"></div>
                         </div>
                         <div class="grid-row">
                           <div class="grid-cell" id = "r3c0" onclick="r3c0Click()"></div>
                           <div class="grid-cell" id = "r3c1" onclick="r3c1Click()"></div>
                           <div class="grid-cell" id = "r3c2" onclick="r3c2Click()"></div>
+						  <div class="grid-cell" id = "r3c3" onclick="r3c3Click()"></div>
+						  <div class="grid-cell" id = "r3c4" onclick="r3c4Click()"></div>
+                        </div>
+						<div class="grid-row">
+                          <div class="grid-cell" id = "r4c0" onclick="r4c0Click()"></div>
+                          <div class="grid-cell" id = "r4c1" onclick="r4c1Click()"></div>
+                          <div class="grid-cell" id = "r4c2" onclick="r4c2Click()"></div>
+						  <div class="grid-cell" id = "r4c3" onclick="r4c3Click()"></div>
+						  <div class="grid-cell" id = "r4c4" onclick="r4c4Click()"></div>
+                        </div>
+						<div class="grid-row">
+                          <div class="grid-cell" id = "r5c0" onclick="r5c0Click()"></div>
+                          <div class="grid-cell" id = "r5c1" onclick="r5c1Click()"></div>
+                          <div class="grid-cell" id = "r5c2" onclick="r5c2Click()"></div>
+						  <div class="grid-cell" id = "r5c3" onclick="r5c3Click()"></div>
+						  <div class="grid-cell" id = "r5c4" onclick="r5c4Click()"></div>
                         </div>
                 </div>
              </div>

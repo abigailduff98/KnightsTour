@@ -1,0 +1,850 @@
+<html>
+        <head>
+                <title> Knight's Tour </title>
+                <style>
+                        html, body {
+                          margin: 0;
+                          padding: 10px;
+                          background: #faf8e0;
+                          color: #ffffff;
+                        }
+
+                        .grid-container {
+                          position: absolute;
+                          z-index: 1; 
+                        }
+
+                        .grid-row {
+                          margin-bottom: 1px; 
+                        }
+
+                        .grid-row:last-child {
+                        margin-bottom: 0; 
+                        }       
+
+                        .grid-row:after {
+                                content: "";
+                            display: block;
+                            clear: both;
+                        }
+
+                        .grid-cell {
+                          width: 106.25px;
+                          height: 106.25px;
+                          margin-right: 1px;
+                          float: left;
+                          border-radius: 0px;
+                          text-align: center;
+                          background: rgba(238, 228, 218, 0.35); 
+                        }
+
+                        .grid-cell:last-child {
+                            margin-right: 0; 
+                        }
+
+                        .game-container {
+                                  margin-top: 40px;
+                                  position: relative;
+                                  padding: 10px;
+                                  cursor: default;
+                                  background: #403933;
+                                  border-radius: 6px;
+                                  width: 664px;
+                                  height: 663px;
+                                  -webkit-box-sizing: border-box;
+                                  -moz-box-sizing: border-box;
+                                  box-sizing: border-box; 
+                        }
+                </style>
+
+                <script>
+ 
+ 						var board=[	[2,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	] ]; //Initializes the variable board for the 2D Array. You still need to create it!
+									
+
+						function initGame(){ //This function __________ the game. What does init stand for? 
+							renderBoard();
+							colorBoard();
+							showMoves();
+						}
+						
+						function renderBoard(){ //This function creates the visual board.
+                                for(var i = 0; i < 6; i++){
+                                        for(var j = 0; j < 6; j++){
+                                                var boardID = "r"+i+"c"+j;
+                                                if(board[i][j]==2){
+                                                        document.getElementById(boardID).innerHTML = "</br></br>Knight";
+                                                }
+                                                else if(board[i][j]==4){
+                                                        document.getElementById(boardID).innerHTML = "</br></br>#";
+                                                }
+												else {
+													document.getElementById(boardID).innerHTML = "";
+												}
+                                        }
+                                }
+						}
+						
+						function colorBoard(){ //This function connects the numbers with the colors.
+									for(var i = 0; i < 6; i++){
+											for(var j = 0; j < 6; j++){
+													var boardID = "r"+i+"c"+j;
+													if(board[i][j] == 2){
+															document.getElementById(boardID).style.background = "#E6E6E6";
+													}
+													else if(board[i][j] == 4){
+															document.getElementById(boardID).style.background = "#E6E6E6";
+													}
+													else if(board[i][j] == 8){
+															document.getElementById(boardID).style.background = "#FFC90E";
+													}
+													else{
+														if(i%2==0 && j%2==1){
+															document.getElementById(boardID).style.background = "#6B4700";
+														}
+														else if(i%2==1 && j%2==0){
+															document.getElementById(boardID).style.background = "#6B4700";
+														}
+														else{
+															document.getElementById(boardID).style.background = "#E6D385";
+														}
+													}
+											}
+									}
+						}
+						
+						function showMoves(){
+							for (var row = 0; row < board.length; row++) {
+								for (var col = 0; col < board[row].length;col++) {
+									if (board[row][col] == 2) {
+										if (row+2 <= board.length-1){
+											if (col-1 >= 0){
+												if (board[row+2][col-1] == 0){
+													board[row+2][col-1]=4;
+												}
+											}
+											if (col+1 <= board[row].length-1){
+												if (board[row+2][col+1] == 0){
+													board[row+2][col+1]=4;
+												}
+											}
+										}
+										if (row-2 >= 0){
+											if (col-1 >= 0){
+												if (board[row-2][col-1] == 0){
+													board[row-2][col-1]=4;
+												}
+											}
+											if (col+1 <= board[row].length-1){
+												if (board[row-2][col+1] == 0){
+													board[row-2][col+1]=4;
+												}
+											}
+										}
+										if (row+1 <= board.length-1){
+											if (col-2 >= 0){
+												if (board[row+1][col-2] == 0){
+													board[row+1][col-2]=4;
+												}
+											}
+											if (col+2 <= board[row].length-1){
+												if (board[row+1][col+2] == 0){
+													board[row+1][col+2]=4;
+												}
+											}
+										}
+										if (row-1 >= 0){
+											if (col-2 >= 0){
+												if (board[row-1][col-2] == 0){
+													board[row-1][col-2]=4;
+												}
+											}
+											if (col+2 <= board[row].length-1){
+												if (board[row-1][col+2] == 0){
+													board[row-1][col+2]=4;
+												}
+											}
+										}
+									}
+								}
+							}
+							renderBoard();
+							colorBoard();
+						}
+						
+
+
+						function r0c0Click(){
+							if (board[0][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][0] = 0;
+							}
+							showMoves();
+                        }	
+						function r0c1Click(){
+							if (board[0][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r0c2Click(){
+							if (board[0][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][2] = 2;
+							}
+							showMoves();
+                        }
+						function r0c3Click(){
+							if (board[0][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][3] = 2;
+							}
+							showMoves();
+                        }
+						function r0c4Click(){
+							if (board[0][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][4] = 2;
+							}
+							showMoves();
+                        }
+						function r0c5Click(){
+							if (board[0][5] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[0][5] = 2;
+							}
+							showMoves();
+                        }
+
+
+						function r1c0Click(){
+							if (board[1][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][0] = 2;
+							}
+							showMoves();
+                        }	
+						function r1c1Click(){
+							if (board[1][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r1c2Click(){
+							if (board[1][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][2] = 2;
+							}
+							showMoves();
+                        }
+						function r1c3Click(){
+							if (board[1][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][3] = 2;
+							}
+							showMoves();
+                        }
+						function r1c4Click(){
+							if (board[1][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][4] = 2;
+							}
+							showMoves();
+                        }
+						function r1c5Click(){
+							if (board[1][5] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[1][5] = 2;
+							}
+							showMoves();
+                        }
+
+
+						
+						function r2c0Click(){
+							if (board[2][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][0] = 2;
+							}
+							showMoves();
+                        }
+						function r2c1Click(){
+							if (board[2][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r2c2Click(){
+							if (board[2][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][2] = 2;
+							}
+							showMoves();
+                        }
+						function r2c3Click(){
+							if (board[2][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][3] = 2;
+							}
+							showMoves();
+                        }
+						function r2c4Click(){
+							if (board[2][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][4] = 2;
+							}
+							showMoves();
+                        }
+						function r2c5Click(){
+							if (board[2][5] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[2][5] = 2;
+							}
+							showMoves();
+                        }
+						
+						
+						function r3c0Click(){
+							if (board[3][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][0] = 2;
+							}
+							showMoves();
+                        }
+						function r3c1Click(){
+							if (board[3][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r3c2Click(){
+							if (board[3][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][2] = 2;
+							}
+							showMoves();
+                        }
+						function r3c3Click(){
+							if (board[3][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][3] = 2;
+							}
+							showMoves();
+                        }
+						function r3c4Click(){
+							if (board[3][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][4] = 2;
+							}
+							showMoves();
+                        }
+						function r3c5Click(){
+							if (board[3][5] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[3][5] = 2;
+							}
+							showMoves();
+                        }
+						
+						
+						function r4c0Click(){
+							if (board[4][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][0] = 2;
+							}
+							showMoves();
+                        }
+						function r4c1Click(){
+							if (board[4][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r4c2Click(){
+							if (board[4][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][2] = 2;
+							}
+							showMoves();
+                        }
+						function r4c3Click(){
+							if (board[4][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][3] = 2;
+							}
+							showMoves();
+                        }
+						function r4c4Click(){
+							if (board[4][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][4] = 2;
+							}
+							showMoves();
+                        }
+						function r4c5Click(){
+							if (board[4][5] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[4][5] = 2;
+							}
+							showMoves();
+                        }
+						
+						
+						function r5c0Click(){
+							if (board[5][0] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][0] = 2;
+							}
+							showMoves();
+                        }
+						function r5c1Click(){
+							if (board[5][1] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][1] = 2;
+							}
+							showMoves();
+                        }	
+						function r5c2Click(){
+							if (board[5][2] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][2] = 2;
+							}
+							showMoves();
+                        }
+						function r5c3Click(){
+							if (board[5][3] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][3] = 2;
+							}
+							showMoves();
+                        }
+						function r5c4Click(){
+							if (board[5][4] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][4] = 2;
+							}
+							showMoves();
+                        }
+						function r5c5Click(){
+							if (board[5][5] == 4){
+								for (var row = 0; row < board.length; row++) {
+									for (var col = 0; col < board[row].length;col++) {
+										if (board[row][col] == 2) {
+											board[row][col] = 8;
+										}
+										if (board[row][col] == 4) {
+											board[row][col] = 0;
+										}
+									}
+								}
+								board[5][5] = 2;
+							}
+							showMoves();
+                        }
+
+						function reset(){
+							board=[	[2,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	],
+									[0,		0,		0,		0,		0,		0	] ];
+							renderBoard();
+							colorBoard();
+							showMoves();	
+						}
+
+               </script>
+
+        </head> 
+        <body onload = "initGame()">
+			<h1><font color="black">The Knight's Tour</h1>
+			<ul class ="navi">
+			<li class ="nav"><a href="index.html">3x4</a></li>
+			<li class ="nav"><a href="knightsTour2.html">5x6</a></li>
+			<li class ="nav"><a href="knightsTour3.html">6x6</a></li>
+			</ul> 
+				<p><font color="black">Lead the knight on a trip around the board below.<p>
+				<p><font color="black">Chess knights move two squares forward and one square perpendicular on each turn. The initial direction can be up, down, left, or right.</p>
+				<p><font color="black">Move this knight around the entire board, landing on each square only once.</p>
+                <div class="game-container">
+                        <div class="grid-container">
+                        <div class="grid-row">
+                          <div class="grid-cell" id = "r0c0" onclick="r0c0Click()"></div>
+                          <div class="grid-cell" id = "r0c1" onclick="r0c1Click()"></div>
+                          <div class="grid-cell" id = "r0c2" onclick="r0c2Click()"></div>
+						  <div class="grid-cell" id = "r0c3" onclick="r0c3Click()"></div>
+						  <div class="grid-cell" id = "r0c4" onclick="r0c4Click()"></div>
+						  <div class="grid-cell" id = "r0c5" onclick="r0c5Click()"></div>
+                        </div>
+                        <div class="grid-row">
+                          <div class="grid-cell" id = "r1c0" onclick="r1c0Click()"></div>
+                          <div class="grid-cell" id = "r1c1" onclick="r1c1Click()"></div>
+                          <div class="grid-cell" id = "r1c2" onclick="r1c2Click()"></div>
+						  <div class="grid-cell" id = "r1c3" onclick="r1c3Click()"></div>
+						  <div class="grid-cell" id = "r1c4" onclick="r1c4Click()"></div>
+						  <div class="grid-cell" id = "r1c5" onclick="r1c5Click()"></div>
+                        </div>
+                        <div class="grid-row">
+                          <div class="grid-cell" id = "r2c0" onclick="r2c0Click()"></div>
+                          <div class="grid-cell" id = "r2c1" onclick="r2c1Click()"></div>
+                          <div class="grid-cell" id = "r2c2" onclick="r2c2Click()"></div>
+						  <div class="grid-cell" id = "r2c3" onclick="r2c3Click()"></div>
+						  <div class="grid-cell" id = "r2c4" onclick="r2c4Click()"></div>
+						  <div class="grid-cell" id = "r2c5" onclick="r2c5Click()"></div>
+                        </div>
+                        <div class="grid-row">
+                          <div class="grid-cell" id = "r3c0" onclick="r3c0Click()"></div>
+                          <div class="grid-cell" id = "r3c1" onclick="r3c1Click()"></div>
+                          <div class="grid-cell" id = "r3c2" onclick="r3c2Click()"></div>
+						  <div class="grid-cell" id = "r3c3" onclick="r3c3Click()"></div>
+						  <div class="grid-cell" id = "r3c4" onclick="r3c4Click()"></div>
+						  <div class="grid-cell" id = "r3c5" onclick="r3c5Click()"></div>
+                        </div>
+						<div class="grid-row">
+                          <div class="grid-cell" id = "r4c0" onclick="r4c0Click()"></div>
+                          <div class="grid-cell" id = "r4c1" onclick="r4c1Click()"></div>
+                          <div class="grid-cell" id = "r4c2" onclick="r4c2Click()"></div>
+						  <div class="grid-cell" id = "r4c3" onclick="r4c3Click()"></div>
+						  <div class="grid-cell" id = "r4c4" onclick="r4c4Click()"></div>
+						  <div class="grid-cell" id = "r4c5" onclick="r4c5Click()"></div>
+                        </div>
+						<div class="grid-row">
+                          <div class="grid-cell" id = "r5c0" onclick="r5c0Click()"></div>
+                          <div class="grid-cell" id = "r5c1" onclick="r5c1Click()"></div>
+                          <div class="grid-cell" id = "r5c2" onclick="r5c2Click()"></div>
+						  <div class="grid-cell" id = "r5c3" onclick="r5c3Click()"></div>
+						  <div class="grid-cell" id = "r5c4" onclick="r5c4Click()"></div>
+						  <div class="grid-cell" id = "r5c5" onclick="r5c5Click()"></div>
+                        </div>
+                </div>
+             </div>
+			 </br>
+			<button onclick="reset()">Reset</button>
+        </body>
+</html>
